@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>vagrant&#39;s blog</title>
+  
+  <subtitle>welcome</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://bobpanda.github.io/"/>
+  <updated>2020-08-05T06:45:44.099Z</updated>
+  <id>https://bobpanda.github.io/</id>
+  
+  <author>
+    <name>vagrant</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>年中随笔</title>
+    <link href="https://bobpanda.github.io/2020/08/05/%E5%B9%B4%E4%B8%AD%E9%9A%8F%E7%AC%94/"/>
+    <id>https://bobpanda.github.io/2020/08/05/%E5%B9%B4%E4%B8%AD%E9%9A%8F%E7%AC%94/</id>
+    <published>2020-08-05T04:48:39.000Z</published>
+    <updated>2020-08-05T06:45:44.099Z</updated>
+    
+    <content type="html"><![CDATA[<p>到2020年8月5日为止，入CTF坑也接近一年半了。我看着身边的师傅们逐渐都搭建起了自己的博客，而我却一直迟迟未建，也许是因为懒，也许是畏惧搭建博客过于困难。我知道，我一直习惯于偷懒和拖延，但近期发生了这许多事，已经不容许我继续这样浑水摸鱼下去了。</p><p>回想竞赛的历程，我是不后悔选择参加CTF竞赛的。虽然我几乎完全扔掉了课内的学习，也抛弃了更权威、更火热的各类算法竞赛，以至于学业成绩一塌糊涂，多次被辅导员老师点名批评，但是我还是走了下来，主要是因为CTF带给我的快乐是独一无二的。我是不后悔选择密码学方向的。当初选择研究密码学方向，一来是因为我那一点点薄弱的算法功底，二来是因为战队确实缺少密码手。选择密码学以来，我确实也经历过很多人的怀疑，怀疑我是否真的能学好它，怀疑它是否能助我在未来的工作中获得高薪职位，但是我还是走了下来，因为它确实助我快速获得了战队核心成员的地位，也助我结识了许多校外的大神，更使我获得了宝贵的快乐学习体验。我是不后悔加入401战队的。当初，我对着bugku的第一道逆向题easy_vb无计可施的时候，是401战队的队长和最初的几个合伙人不计我低微的技术，邀请我加入战队，在我几乎没有任何产出的时候，仍给予我核心成员的地位。在战队内，我结识了好多志同道合又能力极强的师傅，没有他们的帮助，我在安全领域甚至可能仍是一个小白，我确实由衷地感激他们。</p><p>学习CTF竞赛的过程中，我绝对谈不上废寝忘食，充其量也只能称为“还算认真”。三年失败的高中生活以来，也确实很少有我愿意去认真做的事情，我也一直很清楚，这是我的致命弱点，这也导致我跟不上许多大师傅的脚步。最近WMCTF大获全胜的一战，容易让人飘然忘本，应当在狂欢后正视自身的问题，革命尚未成功，同志仍需努力。</p><p>话已讲完，那么，就以这篇随笔为里程碑，开始一段新的旅程吧。</p><p>PS：最后献上对这些大师傅们的感谢，他们都给了我很大的帮助：<strong>Van1sh, Soreat_u, 0xdktb, coinc1dens, shal10w,  badmonkey, and all 0x401 team-mates.</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;到2020年8月5日为止，入CTF坑也接近一年半了。我看着身边的师傅们逐渐都搭建起了自己的博客，而我却一直迟迟未建，也许是因为懒，也许是畏惧搭建博客过于困难。我知道，我一直习惯于偷懒和拖延，但近期发生了这许多事，已经不容许我继续这样浑水摸鱼下去了。&lt;/p&gt;
+&lt;p&gt;回想竞赛的
+      
+    
+    </summary>
+    
+    
+      <category term="Life" scheme="https://bobpanda.github.io/categories/Life/"/>
+    
+    
+      <category term="随笔" scheme="https://bobpanda.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://bobpanda.github.io/2020/08/04/hello-world/"/>
+    <id>https://bobpanda.github.io/2020/08/04/hello-world/</id>
+    <published>2020-08-04T14:02:00.975Z</published>
+    <updated>2020-08-05T02:35:47.775Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to vagrant’s blog. This is a new start.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to vagrant’s blog. This is a new start.&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+      <category term="Life" scheme="https://bobpanda.github.io/categories/Life/"/>
+    
+    
+      <category term="随笔" scheme="https://bobpanda.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+</feed>
