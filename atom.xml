@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bobpanda.github.io/"/>
-  <updated>2020-08-09T05:53:26.865Z</updated>
+  <updated>2020-08-31T15:37:23.596Z</updated>
   <id>https://bobpanda.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Ciscn Build 踩坑笔记</title>
+    <link href="https://bobpanda.github.io/2020/08/31/Ciscn-Build-%E8%B8%A9%E5%9D%91%E7%AC%94%E8%AE%B0/"/>
+    <id>https://bobpanda.github.io/2020/08/31/Ciscn-Build-%E8%B8%A9%E5%9D%91%E7%AC%94%E8%AE%B0/</id>
+    <published>2020-08-31T14:30:56.000Z</published>
+    <updated>2020-08-31T15:37:23.596Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Ciscn真是个坑爹比赛。各种无聊要求最多，承办方通过Build环节收题，还一大堆无理要求（比如在提供docker镜像的情况下要求压缩包小于150M），但是没办法人家是国字头，惹不起嘛。（x</p><h1 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h1><h2 id="1-相关docker命令笔记"><a href="#1-相关docker命令笔记" class="headerlink" title="1.相关docker命令笔记"></a>1.相关docker命令笔记</h2><ol><li><p>从指定的Dockerfile构建docker image:<br><code>docker build -f Dockerfile .</code></p></li><li><p>查看当前的docker image列表：<br><code>docker image ls</code></p></li><li><p>查看当前的docker container列表：<br><code>docker container ls</code></p></li><li><p>查看当前的docker 运行情况：<br><code>docker ps</code></p></li><li><p>删除一个docker镜像：<br><code>docker rmi -f &lt;docker image id&gt;</code><br>注意如果该镜像已经被某些container使用，则需要加入<code>-f</code>指令强制全部删除。</p></li><li><p>从某一个docker镜像启动docker服务：<br><code>docker run -it -d -p 50002:22 -p 8888:8888 &lt;docker image id&gt;</code><br>注意这里的<code>-p</code>指令是将docker中的端口映射到宿主机端口上，如50002:22就是将docker内部的22端口映射到宿主机的50002端口上，这样连接宿主机的50002端口即相当于是使用了docker内部的SSH服务。</p></li><li><p>直接获得一个启动了的docker container 的shell：<br><code>docker exec -it &lt;docker container id&gt; /bin/bash</code></p></li><li><p>启动/关闭一个docker 容器：<br><code>docker start &lt;docker container id&gt;</code><br><code>docker stop &lt;docker container id&gt;</code></p></li><li><p>docker容器和宿主机文件拷贝传输：<br><code>docker cp PATH_outside &lt;docker container id&gt;:PATH_inside</code></p></li></ol><h2 id="2-相关dockerfile中的指令"><a href="#2-相关dockerfile中的指令" class="headerlink" title="2.相关dockerfile中的指令"></a>2.相关dockerfile中的指令</h2><ol><li><p><code>FROM</code> ：指以某个docker镜像为基础构建自己的docker镜像。如果该基础镜像已经存在本地，则直接使用，否则会从网上去Pull。在本次Build环节中我使用的镜像是<code>python:2-slim</code>。这个docker基础只有150M大小，除了提供一个基础的Python环境服务以外什么都不能做。</p></li><li><p><code>RUN</code>：指运行某些指定的bash命令。</p></li><li><p><code>COPY</code>：类似于<code>docker cp</code>命令，从外部环境中拷贝文件到docker中去。</p></li><li><p><code>EXPOSE</code>：暴露某些端口，如22。</p></li></ol><h2 id="3-踩坑日记"><a href="#3-踩坑日记" class="headerlink" title="3.踩坑日记"></a>3.踩坑日记</h2><p>说实话我一开始不知道500多M的docker镜像居然能被7z压缩成150M，真的一直在试图在那个slim的150M什么都没有的docker里面配环境，结果最终是没有成功，不过我还是打算在这里记录一些经验。</p><p>由于该环境没有编译器，<code>apt-get</code>功能也几乎报废，因此在安装pycrypto库时候，需要复制编译好的所有文件，包括动态链接库到docker 中Python的site-package中。但是这样还不行。发现from Crypto.Cipher import AES的时候报错from _AES import *错误，原因是动态链接库名字不对，需要将文件夹中所有的动态链接库名字都改成_AES.so，_DES.so之类。</p><p>装Open-SSH环境时候：需要先下载所有的deb包然后手动安装。命令如下：<br><code>apt-get download $(apt-rdepends openssh-server | grep -v &quot;^ &quot; | sed &#39;s/debconf-2.0/debconf/g&#39;)</code></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;Ciscn真是个坑爹比赛。各种无聊要求最多，承办方通过Build环节收题，还一大堆无理要求（比如在提供docker镜像的情况下要求压缩包小于
+      
+    
+    </summary>
+    
+    
+      <category term="Devops" scheme="https://bobpanda.github.io/categories/Devops/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>开发笔记</title>

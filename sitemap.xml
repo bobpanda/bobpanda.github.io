@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://bobpanda.github.io/2020/08/31/Ciscn-Build-%E8%B8%A9%E5%9D%91%E7%AC%94%E8%AE%B0/</loc>
+    
+    <lastmod>2020-08-31</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://bobpanda.github.io/2020/08/09/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2020-08-09</lastmod>
@@ -60,7 +67,7 @@
 
   <url>
     <loc>https://bobpanda.github.io/</loc>
-    <lastmod>2020-08-09</lastmod>
+    <lastmod>2020-08-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -68,14 +75,14 @@
   
   <url>
     <loc>https://bobpanda.github.io/tags/%E9%9A%8F%E7%AC%94/</loc>
-    <lastmod>2020-08-09</lastmod>
+    <lastmod>2020-08-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://bobpanda.github.io/tags/stack-overflow/</loc>
-    <lastmod>2020-08-09</lastmod>
+    <lastmod>2020-08-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -84,21 +91,21 @@
   
   <url>
     <loc>https://bobpanda.github.io/categories/Life/</loc>
-    <lastmod>2020-08-09</lastmod>
+    <lastmod>2020-08-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://bobpanda.github.io/categories/pwn/</loc>
-    <lastmod>2020-08-09</lastmod>
+    <lastmod>2020-08-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://bobpanda.github.io/categories/Devops/</loc>
-    <lastmod>2020-08-09</lastmod>
+    <lastmod>2020-08-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
