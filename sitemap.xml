@@ -81,7 +81,7 @@
 
   
   <url>
-    <loc>https://bobpanda.github.io/tags/%E9%9A%8F%E7%AC%94/</loc>
+    <loc>https://bobpanda.github.io/tags/writeup/</loc>
     <lastmod>2020-09-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -95,7 +95,7 @@
   </url>
   
   <url>
-    <loc>https://bobpanda.github.io/tags/writeup/</loc>
+    <loc>https://bobpanda.github.io/tags/%E9%9A%8F%E7%AC%94/</loc>
     <lastmod>2020-09-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -104,14 +104,7 @@
 
   
   <url>
-    <loc>https://bobpanda.github.io/categories/Life/</loc>
-    <lastmod>2020-09-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://bobpanda.github.io/categories/pwn/</loc>
+    <loc>https://bobpanda.github.io/categories/crypto/</loc>
     <lastmod>2020-09-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -125,7 +118,14 @@
   </url>
   
   <url>
-    <loc>https://bobpanda.github.io/categories/crypto/</loc>
+    <loc>https://bobpanda.github.io/categories/pwn/</loc>
+    <lastmod>2020-09-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://bobpanda.github.io/categories/Life/</loc>
     <lastmod>2020-09-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
